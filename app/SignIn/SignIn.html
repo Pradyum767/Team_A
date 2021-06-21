@@ -1,0 +1,44 @@
+<div>
+  <div class="LoginPage text-center mt-4">
+    <h1>Sign Up</h1>
+  </div>
+  <div class="container my-5" *ngIf="!signInComplete">
+    <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+      <div class="mb-3">
+        <label for="email" class="form-label">Email Id</label>
+        <input type="email" class="form-control" id="email" required formControlName="email">
+      </div>
+      <div class="mb-3">
+        <label for="username" class="form-label">User Name</label>
+        <input type="userName" class="form-control" id="username" formControlName="userName" required>
+      </div>
+
+    <div class="mb-3">
+      <label for="dob" class="form-label">Date Of Birth</label>
+      <input type="date" class="form-control" id="dob" formControlName="dob" required>
+    </div>
+    <div class="mb-3">
+      <label for="userid" class="form-label">User Id</label>
+      <input type="userName" class="form-control" id="userid" required formControlName="userId" required>
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">Password</label>
+      <input type="password" class="form-control" id="password" required formControlName="password" required>
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">Confirm Password</label>
+      <input type="password" class="form-control" id="password" (keyup)="passwordNotMatch = signInForm.value.password !== signInForm.value.confirmPassword" required formControlName="confirmPassword">
+      <span class="error" *ngIf="passwordNotMatch">
+            Passwords don't match.
+         </span>
+    </div>
+
+    <button type="submit" class="btn btn-primary" value="Submit">Submit</button>
+  </form>
+  </div>
+  <div class="container my-5" *ngIf="signInComplete">
+    <div>{{signInMessage}}</div>
+    <button class="btn btn-primary" (click)="loginClick()">Login</button>
+    <button class="btn btn-primary ms-3" (click)="homeClick()">Home</button>
+  </div>
+</div>

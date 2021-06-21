@@ -1,0 +1,33 @@
+<div class="container-fluid">
+  <div class="row" *ngIf="ordersList.length > 0">
+    <div class="col-lg-8">
+      <h5 class="mb-4">My Orders (<span>{{ordersList.length}}</span> items)</h5>
+      <div class="border row" *ngFor="let list of ordersList;  index as i">
+        <div class="col-md-5 col-lg-3 col-xl-3">
+          <div class="view zoom overlay z-depth-1 rounded mb-3 mb-md-0">
+            <img class="img-fluid w-100" src="{{list.url}}" alt="{{list.name}}">
+          </div>
+        </div>
+        <div class="col-md-7 col-lg-9 col-xl-9 pt-2">
+          <div class="d-flex justify-content-between">
+            <div>
+              <h5>{{list.name}}</h5>
+              <p class="mb-3 text-muted text-uppercase small">Type - {{list.category.catType}}</p>
+              <p class="mb-2 text-muted text-uppercase small">Company - {{list.company}}</p>
+              <p class="mb-3 text-muted text-uppercase small">Rating: {{list.userReviewStars}}</p>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between align-items-center">
+            <div>
+              <a (click) = "viewDetails(list.productId)" type="button" class="card-link-secondary small text-uppercase"><i class="fas fa-heart mr-1"></i> View details </a>
+            </div>
+            <p class="mb-0"><span><strong>{{list.price}}</strong></span></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="ordersList.length === 0">
+    No orders available.
+  </div>
+</div>

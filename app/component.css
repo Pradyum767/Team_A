@@ -1,0 +1,22 @@
+
+a:before
+{
+position:absolute;
+content:'';
+left:0;
+bottom:0;
+height:1.5px;
+border-radius:20px;
+width:100%;
+background:black;
+transform:scaleX(0);
+transform-origin:right;
+transition:transform .4s linear;
+
+}
+	
+ a:hover:before
+{
+	transform:scaleX(1);
+	transform-origin:left;
+}

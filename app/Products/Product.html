@@ -1,0 +1,105 @@
+<div class="container-fluid">
+  <button type="button" class="btn btn-primary" (click)="openModal(template)">Apply filters</button>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-sm mb-5" *ngFor="let list of listView">
+        <div class="card" style="width: 18rem;">
+          <img class="product-image" src="{{list.url}}" alt="{{list.name}}">
+          <div class="card-body">
+            <h5 class="card-title">{{list.name}}</h5>
+            <div>
+              <div class="float-start">
+                <span>Rating:</span>
+                <span>{{list.userReviewStars}}</span>
+              </div>
+              <div class="float-end">
+                <span>Price:</span>
+                <span>{{list.price}}</span>
+              </div>
+              <div class="clearfix">
+              </div>
+            </div>
+            <div>
+              <button type="button" class="btn btn-primary float-start" (click)="viewDetails(list.productId)">
+                View Details
+              </button>
+              <button type="button" class="btn btn-primary float-end" (click)="addToCart(list.productId)" *ngIf="!cartAddedProducts[list.productId]">
+                Add to Cart
+              </button>
+              <button type="button" class="btn btn-primary float-end" (click)="goToCart()" *ngIf="cartAddedProducts[list.productId] === true">
+                Go to Cart
+              </button>
+              <div class="clearfix">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Modal</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="">
+      <h4>Filters</h4>
+      <div class="">
+        <div class="float-left">
+          <input type="radio" id="price" name="filters" value="price" [(ngModel)]="selectFilterType" (change)="changeFilter()">
+          <label for="male">Price</label><br>
+          <input type="radio" id="company" name="filters" value="company" [(ngModel)]="selectFilterType"  (change)="changeFilter()">
+          <label for="female">Company</label><br>
+          <input type="radio" id="ratings" name="filters" value="rating" [(ngModel)]="selectFilterType"  (change)="changeFilter()">
+          <label for="other">Ratings</label>
+        </div>
+        <div class="float-left" [ngSwitch]="selectFilterType">
+          <div *ngSwitchCase="'price'">
+            <div class="slidecontainer">
+              <p>Min value</p>
+              <input type="range" min="500" max="10000" value="500" [(ngModel)] ="priceMinValue">
+            </div>
+            <div class="slidecontainer">
+              <p>Max value</p>
+              <input type="range" min="500" max="10000" value="1000" [(ngModel)] ="priceMaxValue">
+            </div>
+          </div>
+            <div *ngSwitchCase="'company'">
+              <div class="">
+                <div class="float-left">
+                  <div *ngFor="let list of listCompanyData">
+                    <input type="radio" id="{{list}}" value="{{list}}" [(ngModel)] ="companySelectFilter">
+                    <label for="{{list}}">{{list}}</label><br>
+                  </div>
+                </div>
+                </div>
+              </div>
+              <div *ngSwitchCase="'rating'">
+                <div class="slidecontainer">
+                  <p>Low rating</p>
+                  <input type="range" min="0" max="5" value="0" [(ngModel)] ="ratingMinValue">
+                </div>
+                <div class="slidecontainer">
+                  <p>Max rating</p>
+                  <input type="range" min="0" max="5" value="5" [(ngModel)] ="ratingMaxValue">
+                </div>
+              </div>
+        </div>
+        <div class="clearfix">
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" (click)="modalRef.hide()">Cancel</button>
+    <button type="button" class="btn btn-default" (click)="submitFilter()">Submit</button>
+  </div>
+</ng-template>
